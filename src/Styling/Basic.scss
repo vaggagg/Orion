@@ -1,0 +1,188 @@
+@import 'Mixins.scss';
+@import 'Colors.scss';
+.header { display: grid; height: 100px;  animation: 0.2s ease-out 0.3s 1 slideInFromTop;
+    .logo-container { justify-self: center; align-self: center; width: 200px; height: 100px; 
+        img{ max-width: 100%; }
+    }
+}
+
+.header-container {  
+    .logged-header { display: flex; height: 100px; animation: 0.4s ease-out 0.5s 1 slideInFromTop; background-color: $white; padding: 0 20px;
+        .logo-container { width: 200px; height: 100px; 
+            img{ max-width: 100%; }
+        }
+        .search-container { height: 60px; background-color:rgb(226, 226, 226); border-radius: 25px; min-width: 400px; padding: 0 20px; display: flex; margin: 20px;
+            .search-input { background-color: transparent; font-size: 20px; color:rgb(110, 110, 107);height: 30px; line-height: 30px; border: none; border-bottom: 1px solid rgb(0, 0, 0); padding: 0 20px 0 0; margin-top: 15px; width: calc( 100% - 50px);
+                &:active, &:focus-visible , &:focus , &:focus-within { color: black; }
+            }
+            .search-icon { width: 60px; color: black; height: 45px; line-height: 45px; font-size: 25px; margin: 7.5px 0 7.5px 5px; transition: 0.2s color; text-align: center;
+                &:hover { color: $yellow; cursor: pointer;}
+            }
+         }
+        .right-container { margin-left: auto; display: flex;}
+        .header-icon { display: flex; align-items: center; margin-right: 30px; 
+            a { color: black; font-size: 30px; line-height: 30px; transition: 0.2s color; 
+                &:hover { color: $yellow; }
+            }
+        }
+    }
+    
+    .submenu-container { display: flex; width: 300px; flex-direction: column; background-color:#fff; height: calc( 100vh - 100px ); position: fixed; top: 100px; padding: 0; animation: 0.5s ease-out 0.5s 1 slideInFromLeft; margin: 0; transition: 0.4s left;
+        .submenu-icon { color: black; transition: 0.2s color; text-align: center; height:50px; transition: 0.2s background-color;
+            a { color: black; font-size: 25px; line-height: 50px; transition: 0.4s color; display: flex; padding: 0 20px 0 10px; position: relative;
+                &:hover { color: $yellow; }
+                .submenu-title-container { margin-right: 20px; width: calc( 100% - 70px ); text-align: center;
+                    .submenu-title {font-size: 18px; font-weight: 700; color: black; display: inline-block; padding-left: 20px; }
+                }
+                svg { position: absolute; right: 20px; top: 50%; margin-top: -14px; font-size: 25px;}
+            }
+            &:hover { background-color:black;
+                a .submenu-title-container { 
+                    .submenu-title { text-decoration: underline; color: #fff; }
+                }
+            }
+        }
+        &.open { left:0; }
+        &.closed { left: -230px; }
+    }
+}
+.modal-background { position: absolute; top: 50%;left: 50%; transform: translate(-50%, -50%); z-index: 998; background-color: rgba(0, 0, 0, 0.7); height: 100vh; width: 100vw;}
+.modal-container { width: 1200px; height: 800px; top: 50%; left: 50%; transform: translate(-50%, -50%);  border: 2px solid $blue; border-radius: 15px; padding: 20px; position: fixed; background-color: #fff; z-index: 999;
+    .modal-title-container {  text-align: center; position: relative;
+        .modal-title { font-size: 18px; line-height: 20px; letter-spacing: 0.02em; font-weight:500; color: $blue; }
+    }
+    .modal-content { font-size: 16px; line-height: 20px; }
+    .friends-container {
+        .pending-list-container {
+            .results { display: flex; justify-content: space-between; width: 500px; padding: 10px; 
+                a  { color: $blue; @include content; font-weight: 600; text-decoration: none; }
+                .name-container { 
+                    a { margin: 0 3px; display: inline-block;  }
+                }
+                    .pending-buttons { 
+                    .add-button { cursor: pointer; color: rgb(5, 184, 61); font-size: 30px; display: inline-block; margin: 0 5px; transition: 0.2s color;
+                        &:hover { color:rgb(0, 133, 42); }
+                    }
+                    .remove-button { cursor: pointer; color: rgb(223, 21, 7); font-size: 30px;  display: inline-block; margin: 0 5px; transition: 0.2s color;
+                        &:hover { color:rgb(160, 12, 2); }
+                    }
+                }
+            }
+        }
+        .friends-list-container {
+            .results { display: flex; justify-content: space-between; width: 500px; padding: 10px; 
+                a  { color: $blue; @include content; font-weight: 600; text-decoration: none; }
+                .name-container { 
+                    a { margin: 0 3px; display: inline-block;  }
+                }
+                    .pending-buttons { 
+                    .add-button { cursor: pointer; color: rgb(5, 184, 61); font-size: 30px; display: inline-block; margin: 0 5px; transition: 0.2s color;
+                        &:hover { color:rgb(0, 133, 42); }
+                    }
+                    .remove-button { cursor: pointer; color: rgb(223, 21, 7); font-size: 30px;  display: inline-block; margin: 0 5px; transition: 0.2s color;
+                        &:hover { color:rgb(160, 12, 2); }
+                    }
+                }
+            }
+        }
+        .search-container { height: 60px; background-color:rgb(226, 226, 226); border-radius: 25px; min-width: 400px; padding: 0 20px; display: flex; margin: 20px 0 0 0; position: relative; border: 2px solid black; z-index:2; 
+            .search-input { background-color: transparent; font-size: 20px; color:rgb(110, 110, 107); height: 30px; line-height: 30px; border: none; border-bottom: 1px solid rgb(0, 0, 0); padding: 0 20px 0 0; margin-top: 15px; width: calc( 100% - 50px);
+                &:active, &:focus-visible , &:focus , &:focus-within { color: black; }
+            }
+            .search-icon { width: 60px; color: black; height: 45px; line-height: 45px; font-size: 25px; margin: 7.5px 0 7.5px 5px; transition: 0.2s color; text-align: center;
+                &:hover { color: $yellow; cursor: pointer;}
+            }
+            #search-results-friends { position: absolute; padding: 0; top: 20px; background-color: #e2e2e2; list-style: none; width: 100%; left:0; z-index: -1; padding: 40px 0; animation: expand 1s; overflow: hidden;
+                li { padding: 10px 20px; display: flex; justify-content: space-between;
+                    a  { color: $blue; @include content; font-weight: 600; text-decoration: none; }
+                    .name-container { 
+                        a { margin: 0 3px; display: inline-block;  }
+                    }
+                }
+            }
+         }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.mainTitle { @include fontMainTitle; margin: 20px 0; font-family: $regularFont; font-weight: 700; }
+.content { @include content; }
+.hidden { width: 0px; }
+.shown { width: 100%; transition: width .8s;}
+.button-container{ display: flex; justify-content: center; @include paddingTop(20px);}
+.btn { border: 2px solid $blue; font-family: $regularFont; border-radius: 10px; background: $white; padding: 10px 20px; font-size: 20px; cursor: pointer; margin: 10px; transition: 0.8s; position: relative; overflow: hidden; }
+.btn1,.btn2 { color: $blue; }
+.btn1:hover,.btn2:hover { color: $white;  z-index: 100;}
+.btn {
+    &:before { content:""; position: absolute; left:0; width: 100%; height: 0%; background: $blue; z-index: -1; transition: 0.6s; }
+    &:disabled { cursor:not-allowed; pointer-events: none; opacity: 0.5; }
+}
+.btn1 {
+    &:hover {
+        &:before { height: 180%; }
+    }
+    &:before{ top: 0; border-radius: 0 0 50% 50%; }
+}
+.btn2 {
+    &:hover {
+        &:before { height: 180%; }
+    }
+    &:before { bottom: 0; border-radius: 50% 50% 0 0 }
+}
+.input-label { @include fontTitle; display: block; text-align: center; }
+.react-datepicker-wrapper { padding-bottom: 15px !important; 
+    input { margin: 0 auto; width: 60%; border: 2px solid $blue; height: 40px; @include fontTitle; transition: 0.6s; border-radius: 15px; text-align: center; }
+}
+.input-container { padding-bottom: 15px; display: flex; justify-content: center; flex-direction: column;
+    span { @include fontTitle; display: block; text-align: center; }
+    .input { margin: 0 auto; width: 60%; border: 2px solid $blue; height: 40px; @include fontTitle; transition: 0.6s; border-radius: 15px; }
+    .input:focus { width: 65%; border: 2px solid $navy;  }
+    .input:focus-within { width: 65%; border: 2px solid $navy;  }
+    .input:focus-visible { width: 65%; border: 2px solid $navy !important; height: 50px; transition: 0.6s;  };
+
+
+}
+#global-message-container { min-width: 400px; min-height: 95px; border: 2px solid black; border-radius: 10px; position: fixed; top:100px; left: 50%; transform: translate(-50%, 0); background-color: white; transition: 0.6s top;
+    &.error { border: 2px solid $red; background-color: rgb(245, 156, 156); }
+    &.success { border: 2px solid rgb(93, 253, 93); background-color: rgb(219, 250, 173); }
+    &.hidden { top: -100px; 
+        #message { color: #fff; }
+    }
+}
+#message { font-size: 20px; line-height: 22px; padding: 10px; font-weight: 600; }
+.List-container {
+    ul { border: 1px solid $blue; border-radius: 10px; list-style: none; padding: 0; display: flex; flex-wrap: wrap; max-width: 600px; justify-content: center; min-height: 62px;
+        li { display: flex; padding: 10px 25px 10px 10px; background-color: $yellow; border-radius: 25px; position: relative; margin: 10px 10px; cursor: pointer; transition: 0.2s background-color; max-width: 175px; font-size: 18px; line-height: 22px;
+            .icon-1 { position: absolute; right: 5px; }
+            &:hover { background-color: rgba($yellow, .7);}
+        }
+    }
+
+}
+
+//Keyframes animations
+@keyframes slideInFromTop {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(0); }
+}
+@keyframes slideInFromLeft {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+}
+

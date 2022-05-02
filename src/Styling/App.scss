@@ -1,0 +1,194 @@
+@import 'Mixins.scss';
+@import 'Colors.scss';
+
+
+body { background: $background-color; background-attachment: fixed; font-family: $regularFont; }
+//Loading animation
+li { list-style: none;}
+#loading-container { background-color:rgba(155, 155, 239, 0.6);width: 100%; height: 100%; z-index:999; position: absolute; 
+    .loader {
+        position:absolute;
+          width:50px;
+          height:50px;
+      
+          animation:infinite-spinning 4s infinite;
+          animation-timing-function:linear;
+          transform-origin:335% 500%;
+      }
+      
+      @keyframes infinite-spinning {
+          from {
+              transform:rotate(0deg);
+          }
+          to {
+              transform:rotate(360deg);
+          }
+      }
+      
+      .moon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -100px;
+        width: 200px;
+        height: 200px;
+        background: #c7cbd0;
+        border-radius: 50%;
+        box-shadow: inset -25px 0px 0 0px #9098a1;
+        transition: transform 0.2s ease-in-out;
+      
+      
+      li {
+        position: absolute;
+        list-style: none;
+        background: #737277;
+        border-radius: 50%;
+      }
+      li:nth-child(1) {
+        left: 25px;
+        top: 60px;
+        width: 50px;
+        height: 50px;
+        box-shadow: inset 6px -2px 0 0px #414043;
+      }
+      li:nth-child(2) {
+        left: 150px;
+        top: 50px;
+        width: 25px;
+        height: 25px;
+        box-shadow: inset 3px -1px 0 0px #414043;
+      }
+      
+      li:nth-child(3) {
+        left: 100px;
+        top: 150px;
+        width: 25px;
+        height: 25px;
+        box-shadow: inset 3px -1px 0 0px #414043;
+      }
+      
+      li:nth-child(4) {
+        left: 50px;
+        top: 150px;
+        width: 12.5px;
+        height: 12.5px;
+        box-shadow: inset 2.4px -0.8px 0 0px #414043;
+      }
+      
+      li:nth-child(5) {
+        left: 87.5px;
+        top: 16.66666667px;
+        width: 12.5px;
+        height: 12.5px;
+        box-shadow: inset 2.4px -0.8px 0 0px #414043;
+      }
+      
+      li:nth-child(6) {
+        left: 114.28571429px;
+        top: 80px;
+        width: 12.5px;
+        height: 12.5px;
+        box-shadow: inset 2.4px -0.8px 0 0px #414043;
+      }
+      
+      li:nth-child(7) {
+        left: 181.81818182px;
+        top: 100px;
+        width: 12.5px;
+        height: 12.5px;
+        box-shadow: inset 2.4px -0.8px 0 0px #414043;
+      }
+    }
+}
+
+.no-scroll { overflow: hidden;}
+.center-container { width: 1500px; margin: 0 auto; }
+.hidden { display: none; 
+    li { opacity: 0; transition: 0.6s opacity; }
+}
+.icon { position: absolute; right: 0; top: -15px;  width: 50px; height: 50px; transition: 0.2s background-color; cursor: pointer; border-radius: 5px;
+    svg { font-size: 30px; margin: 0 auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: 0.2s color; }
+    &:hover { background-color: black; -webkit-animation:spin 0.2s linear; -moz-animation:spin 0.2s linear; animation:spin 0.2s linear;
+        svg { color: $yellow; }
+    }
+}
+/* Slow-motion Zoom Container */
+.img-zoom img {
+    transform-origin: 50% 65%;
+    transition: transform 0.5s, filter 0.5s ease-in-out;
+    filter: brightness(100%);
+  }
+  
+  /* The Transformation */
+  .img-zoom:hover img {
+    filter: brightness(90%);
+    transform: scale(1.15);
+  }
+//Login and Create Page
+.LoginOrCreate-main { @include paddingTopBot; text-align: center; width:100%; 
+    .inner { @include border; background-color: $white; padding: 40px; display: inline-flex; flex-direction: column; justify-content: space-evenly; min-width: 600px;}
+    .login-container , .create-container { text-align: center; animation: 0.2s ease-out 0s 1 slideInFromLeft; }
+    .create-container { display: flex; justify-content: center; flex-direction: column;
+        .roleContainer { 
+            .roleButton { font-size: 18px; line-height: 20px; padding: 20px 50px; border-radius: 15px; border: 2px solid $blue; color: $blue; margin: 0 15px; background-color: $white; transition: background-color 0.2s;
+                svg { font-size: 20px; transition: font-size 0.2s; }
+                &:hover { background-color: $blue; cursor: pointer; color: #fff; }
+                &.selected { background-color: $blue; cursor: pointer; color: #fff; }
+            }
+    
+        }
+    }
+    .avatar-container { padding: 0 30px; 
+        ul { display: flex; justify-content: center; flex-wrap: wrap;
+            li { width: 100px; height: 100px;  margin: 10px;
+                img { height: 100%; width: 100%; border-radius: 50%; }
+                &:hover {
+                    img { border: 2px solid black; }
+                }
+            }
+        }
+    }
+}
+
+.step-container { 
+    .title-step { font-size: 18px; font-weight: 700; }
+    .inactive { opacity: 0.2; cursor: not-allowed;}
+    button { background-color: transparent; border: none; font-size: 50px; color: $blue; margin: 30px; cursor: pointer; transition: opacity 0.3s; opacity: 0.7;
+        &:hover { opacity:1; }
+    }
+}
+
+
+@media only screen and (max-width: 1499px)  {
+   .center-container { width: 100%; }
+}
+
+
+
+//animations
+@keyframes expand {
+    0%{ height:0px; }
+    100%{ height:100%; }
+}
+@-moz-keyframes expand {
+
+    0%{height: 0px; }
+    100%{height: 100%; }
+}
+@-webkit-keyframes expand {
+    0%{ height:0px; }
+    100%{ height: 100%; }
+}
+
+@-moz-keyframes spin { 
+    100% { -moz-transform: rotate(90deg); } 
+}
+@-webkit-keyframes spin { 
+    100% { -webkit-transform: rotate(90deg); } 
+}
+@keyframes spin { 
+    100% { 
+        -webkit-transform: rotate(90deg); 
+        transform:rotate(90deg); 
+    } 
+}

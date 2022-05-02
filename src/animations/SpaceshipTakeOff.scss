@@ -1,0 +1,39 @@
+.spaceshipTakeoff-container { background: url(../images/starfall.gif) no-repeat center center fixed; z-index: -1; transition: opacity 1s linear; opacity: 1;
+    position: fixed; 
+    top: -50%; 
+    left: -50%; 
+    width: 200%; 
+    height: 200%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    &.launch { z-index: 100; }
+    &.disappear {  opacity: 0; }
+    .spaceship {  bottom: -120px; position: fixed; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%); 
+        &.launch {animation-name: shake, takeOff; animation-delay: 0ms, 700ms; animation-duration: 1000ms, 2000ms; }   
+    }
+
+}
+@keyframes shake {
+  0% { transform: translate( -50% ) rotate(0deg); }
+  10% { transform: translate( -50% ) rotate(-1deg); }
+  20% { transform: translate( -50% ) rotate(1deg); }
+  30% { transform: translate( -50% ) rotate(0deg); }
+  40% { transform: translate( -50% ) rotate(1deg); }
+  50% { transform: translate( -50% ) rotate(-1deg); }
+  60% { transform: translate( -50% ) rotate(0deg); }
+  70% { transform: translate( -50% ) rotate(-1deg); }
+  80% { transform: translate( -50% ) rotate(1deg); }
+  90% { transform: translate( -50% ) rotate(0deg); }
+  100% { transform: translate( -50% ) rotate(-1deg); }
+}
+@keyframes takeOff {
+    0% { transform: translate( -50% , 0% );}
+    5% { transform: translate( -50% , -1% ); }
+    10% { transform: translate( -50% , -2% ); }
+    15% { transform: translate( -50% , -4% ); }
+    20% { transform: translate( -50% , -6% ); }
+    25% { transform: translate( -50% , -10% ); }
+    100% { transform: translate( -50% , -300% ); }
+}
