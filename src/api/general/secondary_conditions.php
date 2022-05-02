@@ -40,4 +40,4 @@ switch($user->action) {
             echo json_encode($rows);
         break;
     }
-$conn->close();
+$conn->close(); 
