@@ -89,6 +89,39 @@ switch($user->action) {
         }
         echo json_encode($response);
         break;
+        case "Authentication1":
+            $sql = "SELECT * FROM users WHERE EMAIL='{$user->email}' AND PASSWORD = '{$user->password}'";
+            $result = $conn->query($sql);
+            $rows = [];
+            while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                $rows[] = $row;
+            }
+         echo json_encode($rows);
+        break;
+    case "AddTags":
+        $sql = "INSERT INTO link_users_tags ( ENTITY_ID, TAG_ID) VALUES ( ?, ?)";
+        
+        $stmt = $conn->prepare($sql);
+        if ($stmt === FALSE) {
+            echo $conn->error;
+         }
+        $stmt->bind_param('ss', $user->entity_id, $user->tag_id );
+
+        if($stmt->execute()) {
+            $response = ['status' => 1, 'message' => 'Record created successfully.'];
+        } else {
+            $response = ['status' => 0, 'message' => 'Failed to create record.'];
+        }
+        break;
+    case "searchTagsByUserID":
+        $sql = "SELECT * FROM link_users_tags WHERE ENTITY_ID LIKE'%{$user->entity_id}%'";
+        $result = mysqli_query($conn,$sql);
+        $rows = [];
+            while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+            $rows[] = $row;
+            }
+            echo json_encode($rows);
+        break;
     case "SearchUsers":
         $sql = "SELECT * FROM users WHERE USERNAME LIKE'%{$user->username}%'";
         $result = mysqli_query($conn,$sql);

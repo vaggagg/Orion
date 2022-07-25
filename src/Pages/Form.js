@@ -7,11 +7,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SpaceShipTakeOff from '../animations/SpaceshipTakeOff';
 import Header from '../BasicComponents/Header';
+import { connect } from 'react-redux';
+import { setAuthedUser } from '../actions/authedUser';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt , faUser } from "@fortawesome/free-solid-svg-icons";
 import createMsgPopUp from '../Global/Helpers';
 
-function Login()  {
+function Login(props)  {
   const navigate = useNavigate();
   const [ showLogin, setshowLogin ] = useState(true);
   const [ password, setPassword ] = useState('');
@@ -29,11 +31,13 @@ function Login()  {
       const credentials = {
         email: email,
         password: password,
-        action:'Authentication'
+        action:'Authentication1'
       }
       axios.post('http://localhost/orion/orion/src/api/general/users.php', credentials).then(function(response){
-            if( response.data.found == 'TRUE'){
+            if( response.data.length > 0){
               setLaunch(true);
+              console.log(response.data)
+              props.dispatch(setAuthedUser(response.data));
               setTimeout(function () {
                 navigate('/timeline');
             }, 3000);
@@ -73,4 +77,9 @@ function Login()  {
   );
 }
 
-export default Login;
+function mapStateToProps ( user ) {
+  return {
+    user
+  }
+}
+export default connect(mapStateToProps)(Login)

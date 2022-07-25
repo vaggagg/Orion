@@ -10,8 +10,10 @@ function List( props ) {
     const addItemToAddedList = (s) => {
         const newList = currentList.filter ( x => x!=s );
         setCurrentList(newList);
-        setAddedList([...addedList, s]);
+
         func([...addedList,s]) // change the state of interests in create js
+        setAddedList([...addedList, s]);
+        
     }
     const removeItemFromAddedList = (s) => {
         const newList = addedList.filter ( x => x!=s );
@@ -24,19 +26,33 @@ function List( props ) {
     useEffect (()=> {
         if ( type == 'volunteerActivities') {
             axios.post('http://localhost/orion/orion/src/api/general/interests.php', { action:'GetAllInterests'} ).then(function(response){ 
-                let array = response.data.map ( e=> e.NAME )
+                let array = response.data.map ( e=>( { name: e.NAME, id: e.ID }))
                 setCurrentList(array);
              })
         }
-        if( type=='orders') {
+        if( type == 'orders' ) {
             axios.post('http://localhost/orion/orion/src/api/general/secondary_conditions.php', { action:'GetAllOrders'} ).then(function(response){ 
-                console.log(response)
-                let array = response.data.map ( e=> e.NAME )
+                console.log(response.data)
+                let array = response.data.map ( e=>( { name: e.NAME, id: e.ID }))
                 setCurrentList(array);
             })
         }
+        if(type=='interestsForPost') {
+            axios.post('http://localhost/orion/orion/src/api/general/interests.php', { action:'interestsForPost'} ).then(function(response){ 
+                let array = response.data.map ( e=>( { name: e.NAME, id: e.ID }))
+                setCurrentList(array);
+             })
+        }
     },[])
-
+    const addTags = (listOfTags , idOfEntity, table) => {
+        axios.post('http://localhost/orion/orion/src/api/general/'+table+'.php', { action:'searchTagsByEntityID', entity_id: 1 } ).then(function(response){ 
+                let array = response.data.map ( e=>( { ENTITY_ID: e.ENTITY_ID, TAG_ID: e.TAG_ID }))
+                console.log(response.data)
+        })
+        listOfTags.forEach(element => {
+            
+        });
+    }
     
     return (
         <div class="List-container">
@@ -44,16 +60,16 @@ function List( props ) {
             <ul class="current-list">
                 
                 {currentList.map((s) => (
-                <li onClick={()=>addItemToAddedList(s)}>
-                {s}<div class='icon-1'><FontAwesomeIcon icon={faPlus}/> </div>
+                <li data-id={s.id} onClick={()=>addItemToAddedList(s)}>
+                {s.name}<div class='icon-1'><FontAwesomeIcon icon={faPlus}/> </div>
                 </li>)) }
             </ul>
             Added interests
             <ul class="added-list">
             
             {addedList.map((s) => (
-                <li onClick={()=>removeItemFromAddedList(s)}>
-                {s}<div class='icon-1'><FontAwesomeIcon icon={faMinus}/> </div>
+                <li data-id={s.id} onClick={()=>removeItemFromAddedList(s)}>
+                {s.name}<div class='icon-1'><FontAwesomeIcon icon={faMinus}/> </div>
                 </li>)) }
             </ul>
       </div>

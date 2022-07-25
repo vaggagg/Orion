@@ -4,12 +4,15 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import Modal from './Modal';
+import { connect } from 'react-redux';
 import Friends from '../ModalComponents/Friends'
-import { faUserAstronaut, faBars, faSearch, faCommentAlt, faBell, faCogs , faUserFriends, faShuttleSpace} from "@fortawesome/free-solid-svg-icons";
+import CreatePost from '../ModalComponents/CreatePost'
+
+import { faUserAstronaut, faBars, faSearch, faCommentAlt, faBell, faCogs , faUserFriends, faShuttleSpace, faFolderPlus} from "@fortawesome/free-solid-svg-icons";
  function Header(props) {
   const [ searchText, setSearchText ] = useState('');
   const [ openFriends, setOpenFriends ] = useState(false);
-  const [ openInterests, setOpenInterests ] = useState(false);
+  const [ openCreatePost, setCreatePost ] = useState(false);
   const openCloseMenu=() =>{
     const  selector = document.getElementsByClassName('submenu-container');
     if ( selector[0].classList.contains('closed') ){
@@ -48,6 +51,8 @@ import { faUserAstronaut, faBars, faSearch, faCommentAlt, faBell, faCogs , faUse
       createSearchResults(response.data)
         });
     }
+    const {isLogged} = props.autheduser;
+    const {NAME, AVATAR} = props.autheduser.loggedUser[0];
   return (
     <div class='header-container'>
     <header className="logged-header">
@@ -87,25 +92,31 @@ import { faUserAstronaut, faBars, faSearch, faCommentAlt, faBell, faCogs , faUse
             </a>
         </li>
         <li class='settings submenu-icon right'>
-        <a href="javascript:void(0)" > 
+        <a href="javascript:void(0)" onClick={ () => setCreatePost(true) }> 
             <div class='submenu-title-container'>
-              <div class='submenu-title'>Interests</div>
+              <div class='submenu-title'>Add New Post</div>
             </div>
-            <FontAwesomeIcon icon={faShuttleSpace}/> 
+            <FontAwesomeIcon icon={faFolderPlus}/> 
           </a>
           </li>
           <li class='settings submenu-icon right'>
           <a href="javascript:void(0)" > 
             <div class='submenu-title-container'>
-              <div class='submenu-title'>Friends</div>
+              <div class='submenu-title'>Add new Post</div>
             </div>
             <FontAwesomeIcon icon={faCogs}/> 
           </a>
           </li>
     </ul>
     { openFriends && <Modal title='Friends' closeFuntion = { setOpenFriends } component = { <Friends />} /> }
+    { openCreatePost && <Modal title='Create Post' closeFuntion = { setCreatePost } component = { <CreatePost />} /> }
     </div>
   );
 }
 
-export default Header;
+function mapStateToProps ({ autheduser }) {
+  return {
+    autheduser
+  }
+}
+export default connect(mapStateToProps)(Header)

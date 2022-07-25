@@ -149,7 +149,10 @@ li { list-style: none;}
         }
     }
 }
-
+.Timeline {
+    .mainContent { width: 1000px; margin: 20px auto; }
+    
+}
 .step-container { 
     .title-step { font-size: 18px; font-weight: 700; }
     .inactive { opacity: 0.2; cursor: not-allowed;}

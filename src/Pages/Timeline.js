@@ -7,6 +7,7 @@ import LoggedHeader from '../BasicComponents/LoggedHeader'
 import Modal from '../BasicComponents/Modal'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt , faUser } from "@fortawesome/free-solid-svg-icons";
+import Post from '../BasicComponents/Post';
 
 function Timeline()  {
   const navigate = useNavigate();
@@ -15,8 +16,11 @@ function Timeline()  {
   const [ email, setEmail ] = useState('');
   const [ launch, setLaunch ] = useState(false);
     return (
-    <div>
+    <div class='Timeline'>
       <LoggedHeader />
+      <div className="mainContent">
+        <Post creator='Test' avatar="1" description='Loreswerqwe wqer wqer wqer' tags={['volunteer', 'test']} postID="2" />
+      </div>
   </div>
   );
 }

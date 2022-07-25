@@ -29,15 +29,14 @@ switch($user->action) {
         }
         break;
     case "GetAllOrders":
-        $sql = "SELECT * FROM secondary_conditions";
+        $sql = "SELECT * FROM secondary";
         $result = mysqli_query($conn,$sql);
-        
         $rows = [];
-            while($row = mysqli_fetch_array($result, MYSQLI_ASSOC) ){
-                echo $result;
+            while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
                 $rows[] = $row;
             }
-            echo json_encode($rows);
+
+            echo json_encode($row);
         break;
     }
 $conn->close(); 

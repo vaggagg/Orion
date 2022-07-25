@@ -84,7 +84,16 @@ function Create (props) {
   const subtractStep = () => {
     setStep(step - 1)
   }
-
+  const addTags = (listOfTags , idOfEntity, table) => {
+    axios.post('http://localhost/orion/orion/src/api/general/'+table+'.php', { action:'searchTagsByEntityID', entity_id: 1 } ).then(function(response){ 
+            console.log(response)
+            let array = response.data.map ( e=>( { ENTITY_ID: e.ENTITY_ID, TAG_ID: e.TAG_ID }))
+            console.log(array)
+    })
+    listOfTags.forEach(element => {
+        
+    });
+}
   const SubmitForm = () => {
     const success =  'You successfully created a new user. Welcome!';
     const error = email +' is already being used by another account';
@@ -95,7 +104,6 @@ function Create (props) {
         name: name ,
         username: username,
         surname: surname,
-        interests:interests.join('#'),
         birthday: startDate,
         avatar: avatar, 
         dateCreated: new Date(),
@@ -105,9 +113,13 @@ function Create (props) {
         email: email,
         action: 'CheckEmail'
       }
+      addTags(interests,1,'users')
       axios.post('http://localhost/orion/orion/src/api/general/users.php', checkEmail).then(function(response){
             if( response.data.found == 'FALSE'){
               axios.post('http://localhost/orion/orion/src/api/general/users.php', allInfo).then(function(response){
+                  axios.post('http://localhost/orion/orion/src/api/general/friends.php', allInfo).then(function(response){
+                    createMsgPopUp(success,'success');
+                  })
                   axios.post('http://localhost/orion/orion/src/api/general/friends.php', allInfo).then(function(response){
                     createMsgPopUp(success,'success');
                   })
@@ -171,8 +183,6 @@ function Create (props) {
       { step === 4 &&
         <div class = "step4">
           <Input label="Username" icon={faHeading} type="text" onchange={onChangeUsername}/>
-        
-          <button class="btn btn1" type='submit' onClick={SubmitForm} disabled={nextArrowDisabled}>Submit</button>
           <div class="avatar-container">
           <span class="mainTitle" >Choose your avatar:</span>
             <ul>
@@ -189,6 +199,8 @@ function Create (props) {
       { step=== 5 && 
         <div class="step5">
           <List type='orders' func={onChangeInterests}/>
+        
+          <button class="btn btn1" type='submit' onClick={SubmitForm} disabled={nextArrowDisabled}>Submit</button>
         </div>
       }
 

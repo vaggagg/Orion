@@ -7,11 +7,23 @@ import reportWebVitals from './reportWebVitals';
 import './Fonts/Dosis/Dosis-Bold.ttf';
 import './Fonts/Dosis/Dosis-Regular.ttf';
 import './Fonts/Dosis/Dosis-Light.ttf';
-
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
+import middleware from './middleware'
+import { loadState,saveState } from './loadStorage';
+const persistedState = loadState();
+const store = createStore(reducer, persistedState, middleware)
+store.subscribe(()=>{
+  saveState({
+    autheduser:store.getState().autheduser
+  }
+    );
+});
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
